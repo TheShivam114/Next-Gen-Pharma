@@ -1,9 +1,10 @@
+import Hero from "./components/home/Hero";
+
 function App() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-slate-900">
-      <h1 className="text-5xl font-bold text-cyan-400">
-        React + Tailwind CSS
-      </h1>
+   
+    <div>
+     <Hero/>
     </div>
   );
 }
