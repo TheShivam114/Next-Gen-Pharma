@@ -4,6 +4,7 @@ import Hero from "./components/home/Hero";
 import Navbar from "./components/home/layout/Navbar";
 // import ProductCard from "./components/home/ProductCard";
 import ProductCategories from "./components/home/ProductCategories";
+import WhyChooseUs from "./components/home/WhyChooseUs";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
      <ProductCategories/>
      <Franchise/>
      <Navbar/>
+     <WhyChooseUs/>
     </div>
   );
 }
