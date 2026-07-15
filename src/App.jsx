@@ -1,3 +1,4 @@
+import AIProducts from "./components/home/AIProducts";
 import CompanyIntro from "./components/home/CompanyIntro";
 import Franchise from "./components/home/Franchise";
 import Hero from "./components/home/Hero";
@@ -16,6 +17,7 @@ function App() {
      <Franchise/>
      <Navbar/>
      <WhyChooseUs/>
+     <AIProducts/>
     </div>
   );
 }
