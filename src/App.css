@@ -1,5 +1,58 @@
 /* =========================================================
-   GLOBAL / COUNTER
+   GLOBAL VARIABLES
+   ========================================================= */
+
+:root {
+  --accent: #14b8a6;
+  --accent-light: #2dd4bf;
+  --accent-dark: #0f766e;
+
+  --accent-bg: #f0fdfa;
+  --accent-border: #5eead4;
+
+  --text-h: #0f172a;
+  --text: #475569;
+  --border: #e2e8f0;
+
+  --social-bg: #f8fafc;
+
+  --shadow-sm: 0 2px 8px rgb(15 23 42 / 6%);
+  --shadow: 0 10px 30px rgb(15 23 42 / 10%);
+  --shadow-lg: 0 20px 50px rgb(15 23 42 / 15%);
+
+  --radius: 14px;
+}
+
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #ffffff;
+  color: var(--text);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+
+/* =========================================================
+   COUNTER / BADGE
    ========================================================= */
 
 .counter {
@@ -7,36 +60,39 @@
   align-items: center;
   justify-content: center;
 
-  padding: 6px 12px;
+  padding: 8px 16px;
   margin-bottom: 24px;
 
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1;
-
-  color: var(--accent);
+  color: var(--accent-dark);
   background: var(--accent-bg);
 
   border: 2px solid transparent;
-  border-radius: 8px;
+  border-radius: 999px;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
 
   cursor: pointer;
 
   transition:
+    transform 0.3s ease,
     border-color 0.3s ease,
     background-color 0.3s ease,
-    transform 0.3s ease,
     box-shadow 0.3s ease;
 }
 
 .counter:hover {
+  transform: translateY(-3px);
+
+  background: #ccfbf1;
   border-color: var(--accent-border);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgb(0 0 0 / 8%);
+
+  box-shadow: var(--shadow-sm);
 }
 
 .counter:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 3px solid rgb(20 184 166 / 30%);
   outline-offset: 3px;
 }
 
@@ -53,49 +109,83 @@
   justify-content: center;
 
   width: 100%;
-  min-height: 420px;
+  min-height: 450px;
 
   overflow: hidden;
 
   perspective: 2000px;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgb(20 184 166 / 8%),
+      transparent 60%
+    );
 }
 
 
-/* Common positioning */
+/* Decorative background */
 
-.hero .base,
-.hero .framework,
-.hero .vite {
-  left: 50%;
-  margin: 0;
-  transform-origin: center;
+.hero::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      rgb(45 212 191 / 10%),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 70% 70%,
+      rgb(14 165 233 / 8%),
+      transparent 35%
+    );
+
+  animation: backgroundPulse 8s ease-in-out infinite alternate;
 }
 
 
-/* Base */
+/* =========================================================
+   HERO BASE
+   ========================================================= */
 
 .hero .base {
   position: relative;
 
-  z-index: 0;
+  z-index: 1;
+
+  display: block;
 
   width: 170px;
   height: auto;
 
-  transform: translateX(-50%);
+  margin: 0 auto;
+
+  transform-origin: center;
+
+  filter:
+    drop-shadow(0 20px 25px rgb(15 23 42 / 12%));
 
   animation: heroFloat 5s ease-in-out infinite;
 }
 
 
-/* Framework */
+/* =========================================================
+   HERO FRAMEWORK
+   ========================================================= */
 
 .hero .framework {
   position: absolute;
 
-  z-index: 2;
+  z-index: 3;
 
   top: 34px;
+  left: 50%;
 
   height: 28px;
   width: auto;
@@ -108,21 +198,29 @@
     rotateY(39deg)
     scale(1.4);
 
+  transform-origin: center;
+
+  filter:
+    drop-shadow(0 10px 15px rgb(15 23 42 / 15%));
+
   animation: frameworkFloat 5s ease-in-out infinite;
 }
 
 
-/* Vite */
+/* =========================================================
+   HERO VITE
+   ========================================================= */
 
 .hero .vite {
   position: absolute;
 
-  z-index: 1;
+  z-index: 2;
 
   top: 107px;
+  left: 50%;
 
-  height: 26px;
   width: auto;
+  height: 26px;
 
   transform:
     translateX(-50%)
@@ -132,17 +230,26 @@
     rotateY(39deg)
     scale(0.8);
 
+  transform-origin: center;
+
   opacity: 0.95;
+
+  filter:
+    drop-shadow(0 8px 12px rgb(15 23 42 / 12%));
 
   animation: viteFloat 5s ease-in-out infinite;
 }
 
 
 /* =========================================================
-   CENTER CONTENT
+   CENTER
    ========================================================= */
 
 #center {
+  position: relative;
+
+  z-index: 5;
+
   display: flex;
   flex-direction: column;
 
@@ -151,12 +258,12 @@
 
   flex-grow: 1;
 
-  gap: 25px;
-
   width: 100%;
   min-height: 100%;
 
-  padding: 40px 24px;
+  gap: 25px;
+
+  padding: 50px 24px;
 
   text-align: center;
 }
@@ -173,16 +280,20 @@
 
   border-top: 1px solid var(--border);
 
+  background: #ffffff;
+
   text-align: left;
 }
 
 
 #next-steps > div {
+  position: relative;
+
   flex: 1 1 0;
 
   min-width: 0;
 
-  padding: 32px;
+  padding: 36px;
 
   transition:
     background-color 0.3s ease,
@@ -191,24 +302,35 @@
 
 
 #next-steps > div:hover {
-  background: rgb(255 255 255 / 3%);
-}
-
-
-/* Icons */
-
-#next-steps .icon {
-  display: block;
-
-  width: 22px;
-  height: 22px;
-
-  margin-bottom: 16px;
+  background: #f8fafc;
 }
 
 
 /* =========================================================
-   DOCUMENT SECTION
+   ICONS
+   ========================================================= */
+
+#next-steps .icon {
+  display: block;
+
+  width: 24px;
+  height: 24px;
+
+  margin-bottom: 18px;
+
+  transition:
+    transform 0.3s ease,
+    color 0.3s ease;
+}
+
+
+#next-steps > div:hover .icon {
+  transform: translateY(-4px) scale(1.08);
+}
+
+
+/* =========================================================
+   DOCUMENTS
    ========================================================= */
 
 #docs {
@@ -217,17 +339,18 @@
 
 
 /* =========================================================
-   SOCIAL / LINKS
+   LINKS
    ========================================================= */
 
 #next-steps ul {
   display: flex;
   flex-wrap: wrap;
+
   align-items: center;
 
   gap: 10px;
 
-  margin: 32px 0 0;
+  margin: 28px 0 0;
   padding: 0;
 
   list-style: none;
@@ -239,50 +362,62 @@
 }
 
 
-/* Logo */
+/* =========================================================
+   LOGOS
+   ========================================================= */
 
 #next-steps .logo {
   width: auto;
   height: 18px;
+
+  object-fit: contain;
 }
 
 
-/* Link */
+/* =========================================================
+   SOCIAL BUTTON
+   ========================================================= */
 
 #next-steps a {
   display: inline-flex;
+
   align-items: center;
   justify-content: center;
 
   gap: 8px;
 
-  min-height: 34px;
+  min-height: 38px;
 
-  padding: 7px 13px;
+  padding: 8px 14px;
 
   color: var(--text-h);
 
-  font-size: 0.95rem;
-  font-weight: 500;
-
-  text-decoration: none;
-
   background: var(--social-bg);
 
-  border-radius: 7px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  text-decoration: none;
 
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease,
-    background-color 0.3s ease;
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 
 #next-steps a:hover {
   transform: translateY(-3px);
 
-  box-shadow:
-    0 8px 20px rgb(0 0 0 / 12%);
+  background: #ffffff;
+
+  border-color: var(--border);
+
+  box-shadow: var(--shadow);
 }
 
 
@@ -291,7 +426,9 @@
 }
 
 
-/* Button icon */
+/* =========================================================
+   BUTTON ICON
+   ========================================================= */
 
 #next-steps .button-icon {
   width: 18px;
@@ -299,12 +436,13 @@
 
   flex-shrink: 0;
 
-  transition: transform 0.3s ease;
+  transition:
+    transform 0.3s ease;
 }
 
 
 #next-steps a:hover .button-icon {
-  transform: scale(1.1);
+  transform: translateX(3px) scale(1.05);
 }
 
 
@@ -317,6 +455,8 @@
   height: 88px;
 
   border-top: 1px solid var(--border);
+
+  background: #ffffff;
 }
 
 
@@ -333,8 +473,6 @@
   background: var(--border);
 }
 
-
-/* Left / right arrows */
 
 .ticks::before,
 .ticks::after {
@@ -356,29 +494,29 @@
 .ticks::before {
   left: 0;
 
-  border-left-color: var(--border);
+  border-left-color: var(--accent);
 }
 
 
 .ticks::after {
   right: 0;
 
-  border-right-color: var(--border);
+  border-right-color: var(--accent);
 }
 
 
 /* =========================================================
-   HERO ANIMATIONS
+   ANIMATIONS
    ========================================================= */
 
 @keyframes heroFloat {
   0%,
   100% {
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
   }
 
   50% {
-    transform: translateX(-50%) translateY(-8px);
+    transform: translateY(-10px);
   }
 }
 
@@ -403,7 +541,7 @@
       rotateZ(300deg)
       rotateX(44deg)
       rotateY(39deg)
-      scale(1.43);
+      scale(1.45);
   }
 }
 
@@ -423,12 +561,25 @@
   50% {
     transform:
       translateX(-50%)
-      translateY(7px)
+      translateY(8px)
       perspective(2000px)
       rotateZ(300deg)
       rotateX(40deg)
       rotateY(39deg)
-      scale(0.82);
+      scale(0.83);
+  }
+}
+
+
+@keyframes backgroundPulse {
+  0% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1.08);
   }
 }
 
@@ -438,10 +589,14 @@
    ========================================================= */
 
 @media (max-width: 1024px) {
+  .hero {
+    min-height: 400px;
+  }
+
   #center {
     gap: 18px;
 
-    padding: 32px 20px 24px;
+    padding: 40px 20px 30px;
   }
 
   #next-steps {
@@ -451,11 +606,12 @@
   }
 
   #next-steps > div {
-    padding: 24px 20px;
+    padding: 28px 20px;
   }
 
   #docs {
     border-right: none;
+
     border-bottom: 1px solid var(--border);
   }
 
@@ -471,7 +627,6 @@
 
   #next-steps a {
     width: 100%;
-    box-sizing: border-box;
   }
 
   #spacer {
@@ -522,6 +677,8 @@
   }
 
   #center {
+    gap: 16px;
+
     padding: 28px 16px;
   }
 
@@ -529,10 +686,13 @@
     flex-direction: column;
 
     width: 100%;
+
+    gap: 8px;
   }
 
   #next-steps li {
     width: 100%;
+
     flex: 1 1 100%;
   }
 
@@ -543,22 +703,56 @@
   .counter {
     margin-bottom: 18px;
 
-    font-size: 0.875rem;
+    padding: 7px 13px;
+
+    font-size: 13px;
   }
 }
 
 
 /* =========================================================
-   REDUCED MOTION
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+  .hero {
+    min-height: 280px;
+  }
+
+  .hero .base {
+    width: 120px;
+  }
+
+  .hero .framework {
+    top: 24px;
+    height: 20px;
+  }
+
+  .hero .vite {
+    top: 76px;
+    height: 19px;
+  }
+
+  #center {
+    padding: 24px 14px;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
    ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
   }
 }
